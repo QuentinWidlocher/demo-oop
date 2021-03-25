@@ -9,7 +9,9 @@ class Paddle(GameObject):
     # Constructeur de la classe
     def __init__(self, ball: Ball = None, is_player=True):
         # Position de la raquette
-        self.rect = Rect(0, 0, 5, 100)
+        self.pos = Vector2(0, 0)
+        # Taille de la raquette
+        self.size = Vector2(5, 100)
         # La raquette est controlée par le joueur ? O/N
         self.is_player = is_player
         # Quelle est la balle du jeu (pour l'IA)
@@ -30,7 +32,7 @@ class Paddle(GameObject):
             self.automatic_control()
 
         # Maintenant que les coordonées ont changés, on dessine la raquette
-        draw.rect(self.screen, (255, 255, 255), self.rect)
+        draw.rect(self.screen, (255, 255, 255), self.as_rect())
 
     def manual_control(self):
         # Ici vous mettez votre logique de mouvement, avec les touches de clavier etc.
@@ -39,3 +41,7 @@ class Paddle(GameObject):
     # Imbattable, la raquette suis la balle directement sans faute
     def automatic_control(self):
         return
+
+    # On se sert de la position et de la taille pour construire un rectangle
+    def as_rect(self):
+        return Rect(self.pos, self.size)
